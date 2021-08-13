@@ -31,6 +31,8 @@ def preprocess(data, gmask, normalize=True, range01=False, mask=None):
       mask_image = math_img('img > 0.99', img=eval('mask_'+mask))
       gmask = resample_to_img(gmask, mask_image, interpolation='nearest')
       mask_image = intersect_masks([mask_image, gmask])
+  else:
+    mask_image=gmask
   masker = NiftiMasker(mask_img=mask_image).fit()
   data = masker.transform(data)
 
